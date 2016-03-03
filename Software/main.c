@@ -54,10 +54,10 @@ int main(void) {
 	//MAX7219_writeSprite(&p1);
 	printf("Initialisation de la WordClock\n");
 	ShowDevices();
-	SetTimeDate();
-	int h = 9;
-	int d = 0;
-	int u = 0;
+	//SetTimeDate();
+	//int h = 9;
+	//int d = 0;
+	//int u = 0;
 	
 	MAX7219_printAnim(20);
 	MAX7219_clearDisplay();
@@ -71,17 +71,17 @@ int main(void) {
 	//MAX7219_bonneAnnee();
 	
 	while(1) {
-		//ADCSRA |= (1 << ADSC);  // Start A2D Conversions
-		//DS1307_GetTime(&hours,&minutes,&seconds);
-		//DS1307_GetDate(&days,&months,&years);
+		ADCSRA |= (1 << ADSC);  // Start A2D Conversions
+		DS1307_GetTime(&hours,&minutes,&seconds);
+		DS1307_GetDate(&days,&months,&years);
 		
 		//printf("%d:%d:%d %d-%d-%d, ",BCD2INT(hours),BCD2INT(minutes),BCD2INT(seconds),BCD2INT(days),BCD2INT(months),BCD2INT(years));
-		MAX7219_writeToAll(MAX7219_MODE_TEST, ON);
-		//MAX7219_printTime(BCD2INT(hours),BCD2Dizaine(minutes),BCD2Unite(minutes));
+		//MAX7219_writeToAll(MAX7219_MODE_TEST, ON);
+		MAX7219_printTime(BCD2INT(hours),BCD2Dizaine(minutes),BCD2Unite(minutes));
 		//MAX7219_printTime(h,d,u);
-		_delay_ms(6000);
+		_delay_ms(400);
 		
-		if(d==5&&u==9){
+		/*if(d==5&&u==9){
 			MAX7219_changementMinute(h,d,u,20);
 		}
 		
@@ -96,10 +96,10 @@ int main(void) {
 				if (h == 25)
 					h = 1;
 			}
+		}*/
+		if(BCD2Dizaine(seconds)==5&&BCD2Unite(seconds)==9){
+			MAX7219_changementMinute(BCD2INT(hours),BCD2Dizaine(minutes),BCD2Unite(minutes),20);
 		}
-		//if(BCD2Dizaine(seconds)==5&&BCD2Unite(seconds)==9){
-			//MAX7219_changementMinute(BCD2INT(hours),BCD2Dizaine(minutes),BCD2Unite(minutes),20);
-		//}
 	}
 }
 

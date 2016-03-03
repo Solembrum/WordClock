@@ -30,12 +30,12 @@ void DS1307_GetDate(uint8_t *months, uint8_t *days, uint8_t *years) {
 
 // initialise l'heure et la date; codé en dur;
 void SetTimeDate(void) {
-	I2C_WriteRegister(DS1307,MONTHS_REGISTER, 0x02);
-	I2C_WriteRegister(DS1307,DAYS_REGISTER, 0x15);
+	I2C_WriteRegister(DS1307,MONTHS_REGISTER, 0x03);
+	I2C_WriteRegister(DS1307,DAYS_REGISTER, 0x03);
 	I2C_WriteRegister(DS1307,YEARS_REGISTER, 0x16);
-	I2C_WriteRegister(DS1307,HOURS_REGISTER, 0x22+0x00); // add 0x40 for PM
-	I2C_WriteRegister(DS1307,MINUTES_REGISTER, 0x15);
-	I2C_WriteRegister(DS1307,SECONDS_REGISTER, 0x10);
+	I2C_WriteRegister(DS1307,HOURS_REGISTER, 0x15+0x00); // add 0x40 for PM
+	I2C_WriteRegister(DS1307,MINUTES_REGISTER, 0x52);
+	I2C_WriteRegister(DS1307,SECONDS_REGISTER, 0x40);
 }
 
 //transforme du format BCD en int;
